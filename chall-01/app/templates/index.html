@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Said NAJIM</h1>
+    <h2>Website version: 0.1</h2>
+    <p id="hostname"></p> 
+    <p id="datetime"></p>
+  </body>
+  <script>
+    // Get hostname and current date
+    var now = new Date();
+    var datetime = now.toLocaleString();
+    var h = location.hostname;
+
+    // Insert date and hostname into HTML
+    document.getElementById("datetime").innerHTML = datetime;      
+    document.getElementById("hostname").innerHTML = h; 
+  </script>
+</html>
