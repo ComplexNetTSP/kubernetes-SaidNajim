@@ -1,0 +1,4 @@
+mongosh --port 27017
+db.createCollection("test");
+db.test.insertOne({test_field: "test_value"});
+db.test.find();
