@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb
+  labels:
+    app: webnodb
+spec:
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb-img
+        image: mrxmoon/flask-img
+        ports:
+        - containerPort: 5000

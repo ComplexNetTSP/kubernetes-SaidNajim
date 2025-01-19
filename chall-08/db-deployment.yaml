@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: mongo
+        command: ["mongod", "--port", "8000"]
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "1Gi"
+          requests:
+            cpu: "0.1"
+            memory: "500Mi" 
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: root
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: root
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+  selector:
+    app: db
+    
