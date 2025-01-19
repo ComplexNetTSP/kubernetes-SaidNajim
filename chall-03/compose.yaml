@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  flask-app:
+    image: my-flask-app:v3 
+    container_name: flask-container-3
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MONGO_URI=mongodb://root:root@db:8000/
+    networks:
+      - flask-mongo-network
+    restart: always
+
+  mongo:
+    image: mongo 
+    container_name: mongodb_container_v2
+    ports:
+      - "8000:8000"  
+    volumes:
+      - mongodb_data:/data/db  
+      - mongodb_configdb:/data/configdb  
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    command: mongod --port 8000 
+    networks:
+      - flask-mongo-network
+    restart: always
+
+volumes:
+  mongodb_data:
+  mongodb_configdb:
+
+networks:
+  flask-mongo-network:
+    driver: bridge
