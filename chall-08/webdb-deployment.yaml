@@ -5,7 +5,6 @@ metadata:
   labels:
     app: webdb
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: webdb
@@ -26,7 +25,7 @@ spec:
             memory: "100Mi"
         env:
         - name: MONGO_URI
-          value: mongodb://root:root@mongo:8000/
+          value: mongodb://root:root@db/
         ports:
         - containerPort: 5000
 ---
@@ -39,6 +38,7 @@ metadata:
 spec:
   ports:
   - port: 5000
+    targetPort: 5000 
     protocol: TCP
   selector:
     app: webdb
