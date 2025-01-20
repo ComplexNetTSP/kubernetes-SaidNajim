@@ -45,4 +45,4 @@ spec:
     protocol: TCP
   selector:
     app: db
-    
+        
