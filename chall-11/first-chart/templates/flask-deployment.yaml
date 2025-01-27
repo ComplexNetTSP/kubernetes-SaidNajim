@@ -25,8 +25,18 @@ spec:
         ports:
         - containerPort: 5000
         env:
+        - name: MONGO_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-config
+              key: MONGO_HOSTNAME
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-config
+              key: MONGO_PORT
         - name: MONGO_URI
-          value: "mongodb://root:example@mongodb-service.snajim.svc.cluster.local:27017/" # MongoDB URL from environment
+          value: "$(MONGO_HOSTNAME):$(MONGO_PORT)/"
         - name: MONGO_DB_NAME
           value: "flask_app_db"  
         - name: MONGO_COLLECTION_NAME
