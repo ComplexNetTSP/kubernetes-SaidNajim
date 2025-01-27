@@ -3,6 +3,7 @@ import socket
 from datetime import datetime
 from pymongo import MongoClient
 import os 
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -14,12 +15,9 @@ client = MongoClient(mongo_uri)
 db = client.flask_app
 collection = db.requests
 
-def get_docker_hostname():
-    try:
-        with open('/etc/hostname', 'r') as f:
-            return f.read().strip()
-    except:
-        return "Unable to retrieve Docker hostname"
+@app.route("/health-check")
+def health():
+    return jsonify({"status": "healthy", "message": "Service is running smoothly"})
 
 @app.route("/")
 def home():
@@ -27,7 +25,6 @@ def home():
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    docker_hostname = get_docker_hostname()
     
     # Client details
     client_ip = request.remote_addr
@@ -52,11 +49,10 @@ def home():
         <h1>Challenge 3</h1>
         <p>Your Name: <strong>Said NAJIM</strong></p>
         <p>Project Name: <strong>THE APP</strong></p>
-        <p>Website Version: <strong>V2</strong></p>
+        <p>Website Version: <strong>V4</strong></p>
 
         <p>Server IP Address: <strong>{ip_address}</strong></p>
         <p>Server Hostname: <strong>{hostname}</strong></p>
-        <p>Docker Hostname: <strong>{docker_hostname}</strong></p>
         <p>Current Date and Time: <strong>{current_date}</strong></p>
         
         <h2>Last 10 Requests</h2>
