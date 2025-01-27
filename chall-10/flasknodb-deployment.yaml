@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb
+spec:
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb
+        image: mrxmoon/flask-img
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi" 
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+        ports:
+        - containerPort: 5000 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webnodb-service
+spec:
+  selector:
+    app: webnodb
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: ClusterIP

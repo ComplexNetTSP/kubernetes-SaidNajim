@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webdb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webdb
+  template:
+    metadata:
+      labels:
+        app: webdb
+    spec:
+      containers:
+      - name: webdb
+        image: mrxmoon/webdb-health
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi" 
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGO_URI
+          value: "mongodb://root:example@mongodb-service.snajim.svc.cluster.local:27017/" # MongoDB URL from environment
+        - name: MONGO_DB_NAME
+          value: "flask_app_db"  
+        - name: MONGO_COLLECTION_NAME
+          value: "requests"   
+        livenessProbe:
+          httpGet:
+            path: /health-check
+            port: 5000
+          initialDelaySeconds: 13
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webdb-service
+spec:
+  selector:
+    app: webdb
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: ClusterIP
