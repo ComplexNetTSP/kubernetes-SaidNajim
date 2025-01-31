@@ -46,7 +46,7 @@ def home():
     <html>
     <head><title>HA with k8s</title></head>
     <body>
-        <h1>Challenge 3</h1>
+        <h1>Challenge 13</h1>
         <p>Your Name: <strong>Said NAJIM</strong></p>
         <p>Project Name: <strong>THE APP</strong></p>
         <p>Website Version: <strong>V4</strong></p>

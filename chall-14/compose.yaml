@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  load-generator:
+    image: busybox
+    command: /bin/sh -c "while sleep 0.01; do wget -q -O- https://webnodb.snajim.net4255.luxbulb.org/; done"
+    deploy:
+      replicas: 6
