@@ -8,6 +8,7 @@
 
 ### Teacher: [Vincent Gauthier](mailto:vincent.gauthier@telecom-sudparis.eu)
 ### Assistant: [Timothée Mathubert](mailto:timothee.mathubert@telecom-sudparis.eu) 
+### <span style="color:orange">Student: </span>[Said NAJIM](https://www.linkedin.com/in/saidnajim/)
 
 ## Introduction
 * Clone this repository
