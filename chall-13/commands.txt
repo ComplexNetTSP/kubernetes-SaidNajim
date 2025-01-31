@@ -1,0 +1,5 @@
+kubectl set image deployments/webdb webdb=mrxmoon/webdb-health:v5
+kubectl set image deployments/webnodb webnodb=mrxmoon/flask-img:v5
+
+kubectl rollout undo deployments/webdb
+kubectl rollout undo deployments/webnodb
